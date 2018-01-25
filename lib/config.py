@@ -3,6 +3,6 @@ import os
 
 def binance():
     return {
-        'KEY': os.getenv('BINANCE_API', 'lol'),
-        'SECRET': os.getenv('BINANCE_SECRET', 'poop')
+        'KEY': os.getenv('BINANCE_API', 'vmPUZE6mv9SD5VNHk4HlWFsOr6aKE2zvsw0MuIgwCIPy6utIco14y7Ju91duEh8A'),
+        'SECRET': os.getenv('BINANCE_SECRET', 'NhqPtmdSJYdKjVHjA7PZj4Mge3R5YNiP1e3UZjInClVN65XAbvqqM6A7H5fATj0j')
     }
