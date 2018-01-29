@@ -8,6 +8,15 @@ from lib import config
 endpoint = config.binance().get('BASE_API')
 header = config.binance().get('HEADER')
 
+def generate_endpoint(url):
+    return config.binance().get('BASE_API') + url
+
+def get_api_key():
+    return config.binance().get('KEY')
+
+def get_api_secret():
+    return config.binance().get('SECRET')
+
 def ping():
     global endpoint
     endpoint += '/api/v1/ping'

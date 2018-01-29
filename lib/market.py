@@ -4,7 +4,7 @@ BASE_PATH=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_PATH)
 
 from lib import config
-def generate_endpoint(url):
+def general.generate_endpoint(url):
     return config.binance().get('BASE_API') + url
 
 def get_api_key():
@@ -18,42 +18,42 @@ def get_api_key():
 # requests_log.propagate = True
 
 def depth(symbol):
-    endpoint = generate_endpoint('/api/v1/depth')
+    endpoint = general.generate_endpoint('/api/v1/depth')
     query={"symbol":symbol}
     response = requests.get(endpoint, params=query)
     return ( response.json() )
 
 # recent trades
 def trades(symbol):
-    endpoint = generate_endpoint('/api/v1/trades')
+    endpoint = general.generate_endpoint('/api/v1/trades')
     query={'symbol':symbol}
     response = requests.get(endpoint, params=query)
     return ( response.json() )
 
 # recent trades
 def old_trades(symbol):
-    endpoint = generate_endpoint('/api/v1/historicalTrades')
+    endpoint = general.generate_endpoint('/api/v1/historicalTrades')
     query={'symbol':symbol}
-    header={"X-MBX-APIKEY": get_api_key()}
+    header={"X-MBX-APIKEY": general.get_api_key()}
     response = requests.get(endpoint, params=query, headers=header)
     return ( response.json() )
 
 # aggregate trades
 def agg_trades(symbol):
-    endpoint = generate_endpoint('/api/v1/aggTrades')
+    endpoint = general.generate_endpoint('/api/v1/aggTrades')
     query={'symbol':symbol}
     response = requests.get(endpoint, params=query)
     return ( response.json() )
 
 def candlestick(symbol, interval):
-    endpoint = generate_endpoint('/api/v1/klines')
+    endpoint = general.generate_endpoint('/api/v1/klines')
     query={'symbol':symbol, 'interval':interval }
     response = requests.get(endpoint, params=query)
     return ( response.json() )
 
 
 def ticker(symbol=None):
-    endpoint = generate_endpoint('/api/v1/ticker/24hr')
+    endpoint = general.generate_endpoint('/api/v1/ticker/24hr')
     if symbol is None: # will return all symbols on exchange
         response = requests.get(endpoint)
     else: # will return price data of only chosen symbol
@@ -62,7 +62,7 @@ def ticker(symbol=None):
     return ( response.json() )
 
 def ticker_price(symbol=None):
-    endpoint = generate_endpoint('/api/v3/ticker/price')
+    endpoint = general.generate_endpoint('/api/v3/ticker/price')
     if symbol is None: # will return all symbols on exchange
         response = requests.get(endpoint)
     else: # will return price data of only chosen symbol
@@ -71,7 +71,7 @@ def ticker_price(symbol=None):
     return ( response.json() )
 
 def book_ticker(symbol=None):
-    endpoint = generate_endpoint('/api/v3/ticker/bookTicker')
+    endpoint = general.generate_endpoint('/api/v3/ticker/bookTicker')
     if symbol is None: # will return all symbols on exchange
         response = requests.get(endpoint)
     else: # will return price data of only chosen symbol
