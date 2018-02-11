@@ -4,11 +4,6 @@ BASE_PATH=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_PATH)
 
 from lib import config
-def general.generate_endpoint(url):
-    return config.binance().get('BASE_API') + url
-
-def get_api_key():
-    return config.binance().get('KEY')
 
 # # enable REQUESTS logging
 # logging.basicConfig()

@@ -16,11 +16,12 @@ secret = config.binance().get('SECRET')
 # requests_log.setLevel(logging.DEBUG)
 # requests_log.propagate = True
 
-# generate_param_body(True) generate signed signature key with only timestamp
-# generate_param_body(True, foo1=bar1, foo2=bar2) signed with parameters
-# generate_param_body(False, foo1=bar1, foo2=bar2) unsigned with parameters)
-# generate_param_body(foo1=bar1, foo2=bar2) unsigned with parameters
-# generate_param_body() unsigned no parameters
+# generate_param(True) generate signed signature key with only timestamp
+# generate_param(True, foo1=bar1, foo2=bar2) signed with parameters
+# generate_param(False, foo1=bar1, foo2=bar2) unsigned with parameters)
+# generate_param(foo1=bar1, foo2=bar2) unsigned with parameters
+# generate_param(True, **{"symbol":"XRPBTC"}) signed with custom query
+# generate_param() unsigned no parameters
 def generate_param(signature=False, **kwargs):
     x = dict(generate_param_body(dict(kwargs), signature))
     return x
@@ -41,7 +42,7 @@ def generate_signature(query_dict):
     for x in query_dict.keys():
         tmp_query_string+=x+'='+query_dict[x]+'&'
     tmp_query_string=tmp_query_string[:-1]
-    return hmac.new(get_api_secret().encode('utf-8'), tmp_query_string.encode('utf-8'), sha256).hexdigest()
+    return hmac.new(general.get_api_secret().encode('utf-8'), tmp_query_string.encode('utf-8'), sha256).hexdigest()
 
     # # hardcoded values from API example
     # print (tmp_query_string, get_api_secret())
