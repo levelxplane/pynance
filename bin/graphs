@@ -1,0 +1,62 @@
+#!/usr/bin/env python
+import csv, time, datetime, os, sys, json
+BASE_PATH=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(BASE_PATH)
+
+import plotly
+import plotly.plotly as py
+import plotly.graph_objs as go
+from plotly.graph_objs import Scatter, Layout
+import numpy as np
+
+
+from lib import config, account, general, market
+
+if __name__ == "__main__":
+
+    # _____________________
+    # print ('Pynance')
+    #
+    x_axis=[]
+    y_axis=[]
+    color=[]
+    red = dict(
+        color = 'rgb(255, 0, 0)',
+    )
+    green = dict(
+        color = 'rgb(0, 255, 0)',
+    )
+    for tmp in market.candlestick('XRPBTC', '1m', 30):
+
+        x = datetime.datetime.fromtimestamp(int(tmp["openTime"]/1000)).strftime('%Y-%m-%d %H:%M:%S')
+        y = [tmp["open"], tmp["close"], tmp["high"], tmp["low"]]
+        x_axis.append(x)
+        y_axis.append(y)
+        if ( tmp["open"] < tmp["close"] ):
+            color.append(green)
+        else:
+            color.append(red)
+        print (x, y)
+    #
+        # time.sleep(5)
+
+    traces=[]
+    for count in range(len(x_axis)-1):
+        traces.append( go.Box(y=y_axis[count], name=x_axis[count], marker=color[count]) )
+
+    plotly.offline.plot(traces)
+    #
+    #     #
+    #     # tmp_list.append({"openTime":x[0],
+    #     #     "open":x[1],
+    #     #     "high":x[2],
+    #     #     "low":x[3],
+    #     #     "close":x[4],
+    #     #     "volume":x[5],
+    #     #     "close_time":x[6],
+    #     #     "quote_asset_volume":x[7],
+    #     #     "number_of_trades":x[8],
+    #     #     "taker_buy_base_asset_volume":x[9],
+    #     #     "taker_buy_quote_asset_volume":x[10],
+    #     #     "ignore":x[11]
+    #     # })

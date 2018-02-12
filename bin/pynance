@@ -1,12 +1,14 @@
 #!/usr/bin/env python
-import csv, time, datetime, os, sys
+import csv, time, datetime, os, sys, json
 BASE_PATH=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_PATH)
 
-from lib import config
+from lib import config, account, general, market
 
 if __name__ == "__main__":
-  print ('lol')
-
-  # print (os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-  # print (config.binance().get('SECRET'))
+    print ('Pynance')
+    while(True):
+        print(market.candlestick('XRPBTC', '1m', '1'))
+        time.sleep(5)
+    # print (os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    # print (config.binance().get('SECRET'))
